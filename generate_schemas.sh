@@ -21,7 +21,6 @@ cd ./aas-core-meta || return 1
 git checkout "${AAS_CORE_META_COMMIT}"
 
 # Install dependencies
-pip install -e .[dev]
 pip install git+https://github.com/aas-core-works/aas-core-codegen@"${AAS_CORE_CODEGEN_COMMIT}"
 
 # Generate schemas
@@ -45,6 +44,13 @@ aas-core-codegen \
   --snippets_dir "../../${SNIPPETS_DIR}"/rdf \
   --output_dir "../../${OUTPUT_DIR}" \
   --target rdf_shacl
+
+echo "Generate Python"
+aas-core-codegen \
+  --model_path "${AAS_CORE_META_MODEL_FILE}" \
+  --snippets_dir "../../${SNIPPETS_DIR}"/Python \
+  --output_dir "../../${OUTPUT_DIR}/Python" \
+  --target python
 
 # Clean up
 cd ../..
